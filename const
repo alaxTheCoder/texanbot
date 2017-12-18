@@ -1,0 +1,13 @@
+const Discord = require('discord.js');
+const client = new Discord.Client();
+const token = require('./settings.json').token;
+const settings = require('./settings.json');
+const fs = require('fs');
+const moment = require('moment');
+const chalk = require('chalk');
+require('./util/eventLoader')(client);
+client.on('ready', () => {
+	console.log(chalk.bgGreen.black('I\'m Online\nI\'m Online'));
+	client.user.setPresence({ game: { name: "Setup - Create Logs channel [Prefix] = ~ ", type: 0 } });
+	client.user.setStatus("idle")
+});

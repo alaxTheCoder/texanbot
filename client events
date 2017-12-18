@@ -1,0 +1,35 @@
+// Client Events
+
+client.on('channelCreate',channel => {
+  console.log(`A ${channel.type} channel by the name of ${channel.name} and was ${channel.createdAt} with the ID of ${channel.id} `);
+  if (!channel.guild.channels.find('name', 'general')) 
+  channel.guild.channels.find('name', 'general').send(`\`\`\`css\n#Channel_Created\n${channel.createdAt}\n<Channel Type: > [${channel.type}]\n<Channel Name: > [${channel.name}]\n\`\`\`\ `);
+  if (channel.type === 'text') return channel.send('\`\`\nSuccesfully Registered\n\`\`\ ');
+  
+});
+
+client.on('channelDelete',channel => {
+	console.log(`A ${channel.type} by the name of ${channel.name} was succesfully deleted with the ID of ${channel.id} `);
+	channel.guild.channels.find('name', 'logs').send(`\`\`\`css\n#Channel_Deleted\n${new Date()}\n<Channel Name: > [${channel.name} => ${channel.id}]\n\`\`\`\ `);
+	channel.guild.channels.find('name', 'general').send(` A Channel Named [${channel.name}] was deleted succesfully \n\`\`ID =>  ${channel.id} \n\`\`\ `);
+});
+
+client.on('channelUpdate', (oChannel, nChannel) => {
+	console.log((oChannel, nChannel));
+});
+
+client.on('channelPinsUpdate', (channel, time) => {
+     channel.guild.channels.find('name', 'logs').send(`\`\`\`css\n#Pin_Update\n${time}\n<Channel Name: > [${channel.name} => ${channel.id}]\n\`\`\`\ `);
+});
+
+client.on('messageDelete', message => {
+	console.log(`A Message with the contents (${message.cleanContent}) was deleted from <${message.channel}>`);
+});
+
+client.on('typingStart', (channel, user) => {
+	console.log(`${user.username} is typing in ${channel.name}`)
+});
+
+client.on('typingStop', (channel, user) => {
+	console.log(`<Case: #Stop_Typed> ${user.username} stopped typing in ${channel.name}`)
+});
